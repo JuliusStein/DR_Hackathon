@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from generative_wrangling import summarize_text, rephrase_text, categorize_text, encode_variables, translate_text, analyze_sentiment
+from generative_wrangling import summarize_message, rephrase_message, label_categories, encode_variables, translate_message, analyze_sentiment
 
 st.set_page_config(layout="wide")
 st.text("Intern Hackathon - Summer 2024 - Julius Stein & Lucas Ferreira")
@@ -27,17 +27,17 @@ new_quotes = []
 
 if summarize_button:
     for quote in quotes:
-        new_quotes.append(summarize_text(quote, 30))
+        new_quotes.append(summarize_message(quote, 30))
     df['summary'] = new_quotes
 
 if rephrase_button:
     for quote in quotes:
-        new_quotes.append(rephrase_text(quote, 'friendly', 30))
+        new_quotes.append(rephrase_message(quote, 'friendly', 30))
     df['rephrased'] = new_quotes
 
 if categorize_button:
     for quote in quotes:
-        new_quotes.append(categorize_text(quote, ['positive', 'negative'], True))
+        new_quotes.append(label_categories(quote, ['positive', 'negative'], True))
     df['categories'] = new_quotes
 
 if variable_button:
@@ -47,7 +47,7 @@ if variable_button:
 
 if translate_button:
     for quote in quotes:
-        new_quotes.append(translate_text(quote, 'en', 'es'))
+        new_quotes.append(translate_message(quote, 'en', 'es'))
     df['translated_en_es'] = new_quotes
 
 if sentiment_button:
