@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import numpy as np
 from generative_wrangling import summarize_text, rephrase_text, categorize_text, encode_variables, translate_text, analyze_sentiment
 
 st.set_page_config(layout="wide")
