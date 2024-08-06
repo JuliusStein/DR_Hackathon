@@ -32,7 +32,7 @@ def summarize_message(message, length):
 def label_categories(message, categoryList, exclusive):
     pass
 
-def encode_varaibles(message, variableList, exclusive):
+def encode_varaibles(message, variableList):
     pass
 
 def translate_message(message, inputLang, outputLang):

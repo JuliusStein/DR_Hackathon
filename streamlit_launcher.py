@@ -38,5 +38,5 @@ if button5:
 if button6:
     pass
 
-df = pd.read_csv('data/movieReviews/critic_reviews.csv')
+df = pd.read_csv('data/movieReviews/test_reviews.csv')
 st.write(df)
