@@ -36,7 +36,22 @@ def encode_variables(message, variableList):
     pass
 
 def translate_message(message, inputLang, outputLang):
-    pass
+    response = client.chat.completions.create(
+        model="gpt-4o", # model = "deployment_name".
+        messages=[
+            {"role": "system", "content": "You are a a translator."},
+            {"role": "user", "content": "Translate the following message into English: " + message}
+        ],
+        max_tokens=50
+    )
+    return response.choices[0].message.content
 
 def analyze_sentiment(message, emotionList):
-    pass
+    response = client.chat.completions.create(
+        model="gpt-4o", # model = "deployment_name".
+        messages=[
+            {"role": "system", "content": "You are a sentiment analyzer."},
+            {"role": "user", "content": "Score the following message according to these emotions: " + str(emotionList) + ". Message: " + message}
+        ],
+        max_tokens=100
+    )
