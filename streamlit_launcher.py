@@ -69,6 +69,11 @@ st.text("Intern Hackathon - Summer 2024 - Julius Stein & Lucas Ferreira")
 st.image('images/datarobot_logo.png', width=320)
 st.subheader("Generative Wrangler Operations")
 
+uploaded_file = st.file_uploader("Choose a file")
+if uploaded_file is not None:
+    df = pd.read_csv(uploaded_file)
+    feature = df.columns[0]
+
 col1, col2, col3, col4, col5, col6 = st.columns(6)
 with col1:
     summarize_button = st.button('Summarize Text', on_click=display_subfields_summarize)
@@ -84,22 +89,22 @@ with col6:
     sentiment_button = st.button('Analyze Sentiment', on_click=display_subfields_sentiment)
 
 #df = pd.read_csv('data/movieReviews/test_reviews.csv')
-df = pd.read_csv('data/jira_bugs/jira_bugs.csv')
-quotes = list(df['Description'])
+#df = pd.read_csv('data/jira_bugs/jira_bugs.csv')
+#quotes = list(df['Description'])
 
 if st.session_state.summarize:
-    feature = st.text_input("Input Feature Name")
+    feature = st.text_input("Input Feature Name", df.columns[0])
     length = st.number_input("Max Tokens", 10, 100, 30)
     title = st.text_input("New Feature Name", "new_feature")
     add_summarize_operation = st.button("Add Operation")
 elif st.session_state.rephrase:
-    feature = st.text_input("Input Feature Name")
+    feature = st.text_input("Input Feature Name", df.columns[0])
     length = st.number_input("Max Tokens", 10, 100, 30)
     tone = st.selectbox("Tone", ['friendly', 'professional', 'sarcastic'])
     title = st.text_input("New Feature Name")
     add_rephrase_operation = st.button("Add Operation")
 elif st.session_state.categorize:
-    feature = st.text_input("Input Feature Name", "new_feature")
+    feature = st.text_input("Input Feature Name", df.columns[0])
     inner1, inner2, inner3 = st.columns(3)
     with inner1:
         category1 = st.text_input("Category 1")
@@ -111,7 +116,7 @@ elif st.session_state.categorize:
     title = st.text_input("New Feature Name", "new_feature")
     add_categorize_operation = st.button("Add Operation")
 elif st.session_state.variable:
-    feature = st.text_input("Input Feature Name", "new_feature")
+    feature = st.text_input("Input Feature Name", df.columns[0])
     inner1, inner2, inner3 = st.columns(3)
     with inner1:
         variable1 = st.text_input("Variable 1")
@@ -122,12 +127,12 @@ elif st.session_state.variable:
     title = st.text_input("New Feature Name", "new_feature")
     add_variable_operation = st.button("Add Operation")
 elif st.session_state.translate:
-    feature = st.text_input("Input Feature Name")
+    feature = st.text_input("Input Feature Name", df.columns[0])
     outputLang = st.text_input("Output Language")
     title = st.text_input("New Feature Name", "new_feature")
     add_translate_operation = st.button("Add Operation")
 elif st.session_state.sentiment:
-    feature = st.text_input("Input Feature Name")
+    feature = st.text_input("Input Feature Name", df.columns[0])
     inner1, inner2, inner3 = st.columns(3)
     with inner1:
         emotion1 = st.text_input("Emotion 1")
@@ -138,6 +143,8 @@ elif st.session_state.sentiment:
     title = st.text_input("New Feature Name", "new_feature")
     add_sentiment_operation = st.button("Add Operation")
 
+if uploaded_file is not None:
+    quotes = list(df[feature])
 
 if st.session_state.summarize:
     if add_summarize_operation:
@@ -182,4 +189,5 @@ elif st.session_state.sentiment:
         df[title] = new_quotes
         st.session_state.sentiment = False
 
-st.dataframe(df)
+if uploaded_file is not None:
+    st.dataframe(df)
