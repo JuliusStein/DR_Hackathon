@@ -35,7 +35,7 @@ def label_categories(message, categoryList, exclusive):
 def encode_variables(message, variableList):
     pass
 
-def translate_message(message, inputLang, outputLang):
+def translate_message(message, outputLang):
     response = client.chat.completions.create(
         model="gpt-4o", # model = "deployment_name".
         messages=[
