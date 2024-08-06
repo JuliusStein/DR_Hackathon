@@ -83,8 +83,9 @@ with col5:
 with col6:
     sentiment_button = st.button('Analyze Sentiment', on_click=display_subfields_sentiment)
 
-df = pd.read_csv('data/movieReviews/test_reviews.csv')
-quotes = list(df['quote'])
+#df = pd.read_csv('data/movieReviews/test_reviews.csv')
+df = pd.read_csv('data/jira_bugs/jira_bugs.csv')
+quotes = list(df['Description'])
 
 if st.session_state.summarize:
     feature = st.text_input("Input Feature Name")
