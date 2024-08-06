@@ -74,19 +74,19 @@ if uploaded_file is not None:
     df = pd.read_csv(uploaded_file)
     feature = df.columns[0]
 
-col1, col2, col3, col4, col5, col6 = st.columns(6)
-with col1:
-    summarize_button = st.button('Summarize Text', on_click=display_subfields_summarize)
-with col2:
-    rephrase_button = st.button('Rephrase Text', on_click=display_subfields_rephrase)
-with col3:
-    categorize_button = st.button('Label Categories', on_click=display_subfields_categorize)
-with col4:
-    variable_button = st.button('Encode Variables', on_click=display_subfields_variable)
-with col5:
-    translate_button = st.button('Translate Text', on_click=display_subfields_translate)
-with col6:
-    sentiment_button = st.button('Analyze Sentiment', on_click=display_subfields_sentiment)
+    col1, col2, col3, col4, col5, col6 = st.columns(6)
+    with col1:
+        summarize_button = st.button('Summarize Text', on_click=display_subfields_summarize)
+    with col2:
+        rephrase_button = st.button('Rephrase Text', on_click=display_subfields_rephrase)
+    with col3:
+        categorize_button = st.button('Label Categories', on_click=display_subfields_categorize)
+    with col4:
+        variable_button = st.button('Encode Variables', on_click=display_subfields_variable)
+    with col5:
+        translate_button = st.button('Translate Text', on_click=display_subfields_translate)
+    with col6:
+        sentiment_button = st.button('Analyze Sentiment', on_click=display_subfields_sentiment)
 
 #df = pd.read_csv('data/movieReviews/test_reviews.csv')
 #df = pd.read_csv('data/jira_bugs/jira_bugs.csv')
