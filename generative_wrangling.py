@@ -11,10 +11,11 @@ def rephrase_message(message, tone, length):
     response = client.chat.completions.create(
         model="gpt-4o", # model = "deployment_name".
         messages=[
-            {"role": "system", "content": "Rephrase the following message using a " + tone + " tone."},
-            {"role": "user", "content": message}
+            {"role": "system", "content": "You are an assistant specializing in rephrasing."},
+            {"role": "user", "content": "Rephrase the following message using a " + tone + " tone: " + message}
         ],
-        max_tokens=length
+        max_tokens=length,
+        temperature=0.85
     )
     return response.choices[0].message.content
 
@@ -22,10 +23,11 @@ def summarize_message(message, length):
     response = client.chat.completions.create(
         model="gpt-4o", # model = "deployment_name".
         messages=[
-            {"role": "system", "content": "Summarize the following message."},
-            {"role": "user", "content": message}
+            {"role": "system", "content": "You are an assistant specializing in summarizing."},
+            {"role": "user", "content": "Summarize the following message into a more concise format: " + message}
         ],
-        max_tokens=length
+        max_tokens=length,
+        temperature=0.7
     )
     return response.choices[0].message.content
 
@@ -39,10 +41,11 @@ def translate_message(message, outputLang):
     response = client.chat.completions.create(
         model="gpt-4o", # model = "deployment_name".
         messages=[
-            {"role": "system", "content": "You are a a translator."},
+            {"role": "system", "content": "You are a translator."},
             {"role": "user", "content": "Translate the following message into English: " + message}
         ],
-        max_tokens=50
+        max_tokens=50,
+        temperature=0.6
     )
     return response.choices[0].message.content
 
