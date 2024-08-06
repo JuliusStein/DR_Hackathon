@@ -32,10 +32,31 @@ def summarize_message(message, length):
     return response.choices[0].message.content
 
 def label_categories(message, categoryList, exclusive):
-    pass
+    if exclusive == True:
+        messages=[
+            {"role": "system", "content": "You are a categorical labeler for data science projects"},
+            {"role": "user", "content": "Given a list of categories, categorize the following messages. Only assign one category for each message. Only assign messages to categories found in the given list. \nMessage: "+message+"\nList of categories: "+", ".join(categoryList)}
+        ]
+    else:
+        messages=[
+            {"role": "system", "content": "You are a categorical labeler for data science projects"},
+            {"role": "user", "content": "Given a list of categories, categorize the following messages. Only assign messages to categories found in the given list. \nMessage: "+message+"\nList of categories: "+", ".join(categoryList)}
+        ]
+    response = client.chat.completions.create(
+        model="gpt-4o",
+            messages=messages
+    )
+    return response.choices[0].message.content
 
 def encode_variables(message, variableList):
-    pass
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {"role": "system", "content": "You are a machine learning variable encoder"},
+            {"role": "user", "content": "Given a list of variables, assign each varaiable a boolean value of either True or False based on whether or not the text is related to that variable. Only assign values to variables found in the given list. \nMessage: "+message+"\nList of variables: "+", ".join(variableList)}
+        ]
+    )
+    return response.choices[0].message.content
 
 def translate_message(message, outputLang):
     response = client.chat.completions.create(
