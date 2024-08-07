@@ -35,16 +35,17 @@ def label_categories(message, categoryList, exclusive):
     if exclusive == True:
         messages=[
             {"role": "system", "content": "You are a categorical labeler for data science projects"},
-            {"role": "user", "content": "Given a list of categories, categorize the following messages. Only assign one category for each message. Only assign messages to categories found in the given list. \nMessage: "+message+"\nList of categories: "+", ".join(categoryList)}
+            {"role": "user", "content": "Given a list of categories, categorize the following messages. Only assign one category for each message. Only assign messages to categories found in the given list. \nMessage: "+message+"\nList of categories: "+", ".join(categoryList) + "Use the following format: 'Category: <label>'"}
         ]
     else:
         messages=[
             {"role": "system", "content": "You are a categorical labeler for data science projects"},
-            {"role": "user", "content": "Given a list of categories, categorize the following messages. Only assign messages to categories found in the given list. \nMessage: "+message+"\nList of categories: "+", ".join(categoryList)}
+            {"role": "user", "content": "Given a list of categories, categorize the following messages. Only assign messages to categories found in the given list. \nMessage: "+message+"\nList of categories: "+", ".join(categoryList) + "Use the following format: 'Category: <<label>>'"}
         ]
     response = client.chat.completions.create(
         model="gpt-4o",
-            messages=messages
+            messages=messages,
+        max_tokens=50
     )
     return response.choices[0].message.content
 
@@ -53,8 +54,9 @@ def encode_variables(message, variableList):
         model="gpt-4o",
         messages=[
             {"role": "system", "content": "You are a machine learning variable encoder"},
-            {"role": "user", "content": "Given a list of variables, assign each varaiable a boolean value of either True or False based on whether or not the text is related to that variable. Only assign values to variables found in the given list. \nMessage: "+message+"\nList of variables: "+", ".join(variableList)}
-        ]
+            {"role": "user", "content": "Given a list of variables, assign each varaiable a boolean value of either True or False based on whether or not the text is related to that variable. Only assign values to variables found in the given list. \nMessage: "+message+"\nList of variables: "+", ".join(variableList) + "Use the following format separated by commas: <Variable>=<value>"}
+        ],
+        max_tokens=50
     )
     return response.choices[0].message.content
 
